@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "8fad5df2-3c8f-4e62-881d-72b41aeb27cc",
+		"name": "ObviouslyAIAssessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31167267"
+	},
+	"item": [
+		{
+			"name": "Auth Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"your_username\",\n    \"email\": \"your_email@example.com\",\n    \"full_name\": \"Your Full Name\",\n    \"password\": \"your_password\",\n    \"disabled\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/auth/register",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'http://localhost:8000/auth/token' \\\n--header 'Content-Type: application/x-www-form-urlencoded' \\\n--data-urlencode 'username=your_username' \\\n--data-urlencode 'password=your_password'"
+			},
+			"response": []
+		},
+		{
+			"name": "Auth Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try{",
+							"let resp = pm.response.json();",
+							"console.log(resp)",
+							"pm.collectionVariables.set(\"access_token\", resp.access_token);",
+							"",
+							"}catch(e){",
+							"    ",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"your_username\",\n    \"password\": \"your_password\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/auth/login",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books?limit&offset",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": null
+						},
+						{
+							"key": "offset",
+							"value": null
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X GET \"http://localhost:8000/books\" -H \"accept: application/json\""
+			},
+			"response": []
+		},
+		{
+			"name": "Single Book",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books/502",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books",
+						"502"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET \"http://localhost:8000/books/1\" -H \"accept: application/json\""
+			},
+			"response": []
+		},
+		{
+			"name": "New Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Sample Book\",\n  \"author\": \"New Author Name\",\n  \"published_date\": \"2024-01-01\",\n  \"genre\": \"Science Fiction\",\n  \"summary\": \"Sample Summary\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST \"http://localhost:8000/books\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d '{\n  \"title\": \"Sample Book\",\n  \"author\": \"Author Name\",\n  \"published_date\": \"2023-01-01\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Replace Book",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"published_date\": \"2024-01-01\",\n    \"genre\": \"Science Fiction\",\n    \"summary\": \"Sample Summary\",\n    \"title\": \"Sample Book\",\n    \"author\": \"New Author Name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books/1",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X PUT \"http://localhost:8000/books/1\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d '{\n  \"title\": \"Updated Book Title\",\n  \"author\": \"Updated Author Name\",\n  \"published_date\": \"2023-01-01\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Partially Updated Book Title\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books/1",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X PATCH \"http://localhost:8000/books/1\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d '{\n  \"title\": \"Partially Updated Book Title\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/books/1",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"books",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X DELETE \"http://localhost:8000/books/1\" -H \"accept: application/json\""
+			},
+			"response": []
+		},
+		{
+			"name": "StreamAPI (SSE)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/event-stream"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://obvai-assessment-91aa707f2f98.herokuapp.com/sse/events",
+					"host": [
+						"https://obvai-assessment-91aa707f2f98.herokuapp.com"
+					],
+					"path": [
+						"sse",
+						"events"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request GET 'http://localhost:8000/sse/events' \\\n--header 'Accept: text/event-stream'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		}
+	]
+}
