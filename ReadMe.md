@@ -14,8 +14,8 @@ This FastAPI application provides CRUD operations for managing books in an SQLit
 1. Clone the repository:
 
 ```sh
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/ArunVenkata/ObvAIAssessment
+cd ObvAIAssessment
 ```
 
 
