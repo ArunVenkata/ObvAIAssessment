@@ -40,7 +40,7 @@ pip install -r requirements.txt
 The application will be available at http://localhost:8000.
 
 ## API Documentation
-The API documentation is available at http://localhost:8000/docs
+The Swagger API documentation is available at http://localhost:8000/docs
 
 ### Endpoints
 
